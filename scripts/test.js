@@ -1,7 +1,12 @@
 const fs = require("fs");
 
+const express = require("express");
 
 const { chromium } = require("playwright");
+
+
+
+const app = express();
 
 
 
@@ -42,7 +47,6 @@ function saveDate(date) {
   );
 
 }
-
 
 
 
@@ -811,5 +815,40 @@ async function test() {
 
 
 
+/*
+  WEB SERVER
+*/
 
-test();
+app.get("/", async (req, res) => {
+
+  try {
+
+    await test();
+
+    res.send(
+      "SCRAPER FINISHED"
+    );
+
+  }
+
+  catch (err) {
+
+    console.log(err);
+
+    res.status(500).send(
+      "ERROR"
+    );
+
+  }
+
+});
+
+
+
+app.listen(3000, () => {
+
+  console.log(
+    "SERVER RUNNING"
+  );
+
+});
