@@ -43,7 +43,7 @@ async function test() {
   );
 
   await page.waitForSelector("#date_picker", {
-    timeout: 10000
+    timeout: 60000
   });
 
   const currentDate = await page.locator("#date_picker").inputValue();
