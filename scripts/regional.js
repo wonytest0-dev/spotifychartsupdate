@@ -38,12 +38,12 @@ async function test() {
     "https://charts.spotify.com/charts/view/regional-global-daily/latest",
     {
       waitUntil: "domcontentloaded",
-      timeout: 15000
+      timeout: 150000
     }
   );
 
   await page.waitForSelector("#date_picker", {
-    timeout: 60000
+    timeout: 600000
   });
 
   const currentDate = await page.locator("#date_picker").inputValue();
@@ -113,11 +113,11 @@ async function test() {
 
           await page.goto(url, {
             waitUntil: "domcontentloaded",
-            timeout: 15000
+            timeout: 30000
           });
 
           await page.waitForSelector("tbody tr", {
-            timeout: 5000
+            timeout: 10000
           });
 
           const results =
