@@ -4,216 +4,270 @@ const { chromium } = require("playwright");
 
 const app = express();
 
-function getSavedDate() {
-  try {
-    return fs.readFileSync("last_date.txt", "utf8");
-  } catch {
-    return "";
-  }
-}
+const OUTPUT_FILE = "jimin-regional.json";
 
-function saveDate(date) {
-  fs.writeFileSync("last_date.txt", date);
-}
 
-async function test() {
+
+async function scrapeCharts() {
 
   const browser = await chromium.launch({
+
     headless: true,
+
     args: [
+
       "--no-sandbox",
+
       "--disable-setuid-sandbox",
+
       "--disable-dev-shm-usage"
+
     ]
+
   });
 
   const context = await browser.newContext({
+
     storageState: "auth.json"
+
   });
 
   const page = await context.newPage();
 
-  await page.goto(
-    "https://charts.spotify.com/charts/view/regional-global-daily/latest",
-    {
-      waitUntil: "domcontentloaded",
-      timeout: 60000
-    }
-  );
 
-  await page.waitForSelector("#date_picker", {
-    timeout: 15000
-  });
-
-  const currentDate = await page.locator("#date_picker").inputValue();
-
-  console.log("CURRENT DATE:", currentDate);
-
-  const oldDate = getSavedDate();
-
-  console.log("OLD DATE:", oldDate);
-
-  if (!oldDate) {
-    console.log("FIRST RUN DETECTED");
-  }
-  else if (currentDate === oldDate) {
-    console.log("NO CHART UPDATE");
-    await browser.close();
-    return;
-  }
-
-  if (fs.existsSync("jimin-regional.json")) {
-
-    if (!fs.existsSync("history")) {
-      fs.mkdirSync("history");
-    }
-
-    const backupName =
-      oldDate.replace(/\s+/g, "-").replace(/,/g, "");
-
-    fs.copyFileSync(
-      "jimin-regional.json",
-      `history/${backupName}-regional.json`
-    );
-
-    console.log("OLD JSON BACKED UP");
-  }
-
-  const categories = [
-    "regional"
-  ];
 
   const countries = [
+
     "global",
-    "ad","ae","ar","at","au","be","bg","bo","br","ca","ch","cl","co","cr","cy","cz",
-    "de","dk","do","ec","ee","eg","es","fi","fr","gb","gr","gt","hk","hn","hu",
-    "id","ie","il","in","is","it","jp","kr","lt","lu","lv","ma","mt","mx","my",
-    "ni","nl","no","nz","pa","pe","ph","pl","pt","py","ro","sa","se","sg","sk",
-    "sv","th","tr","tw","ua","us","uy","vn","za"
+
+    "ad","ae","ar","at","au","be","bg","bo","br",
+    "ca","ch","cl","co","cr","cy","cz",
+    "de","dk","do",
+    "ec","ee","eg","es",
+    "fi","fr",
+    "gb","gr","gt",
+    "hk","hn","hu",
+    "id","ie","il","in","is","it",
+    "jp","kr",
+    "lt","lu","lv",
+    "ma","mt","mx","my",
+    "ni","nl","no","nz",
+    "pa","pe","ph","pl","pt","py",
+    "ro",
+    "sa","se","sg","sk","sv",
+    "th","tr","tw",
+    "ua","us","uy",
+    "vn","za"
+
   ];
+
+
 
   const chartTypes = [
+
     "daily",
     "weekly"
+
   ];
 
-  const jiminResults = [];
 
-  for (const category of categories) {
-    for (const country of countries) {
-      for (const type of chartTypes) {
 
-        const url =
-          `https://charts.spotify.com/charts/view/${category}-${country}-${type}/latest`;
+  const results = [];
 
-        console.log("OPENING:", url);
 
-        try {
 
-          await page.goto(url, {
-            waitUntil: "domcontentloaded",
-            timeout: 60000
-          });
+  for (const country of countries) {
 
-          await page.waitForSelector("tbody tr", {
-            timeout: 15000
-          });
+    for (const type of chartTypes) {
 
-          const results =
-            await page.locator("tbody tr")
-            .evaluateAll(rows => {
+      const url =
 
-              return rows.map(row => {
+        `https://charts.spotify.com/charts/view/regional-${country}-${type}/latest`;
 
-                const tds = row.querySelectorAll("td");
 
-                const rank =
-                  tds[1]?.innerText?.trim()?.split("\n")[0] || "";
 
-                const song =
-                  row.querySelector(
-                    "span[class*='StyledTruncatedTitle']"
-                  )?.innerText?.trim() || "";
+      console.log("OPENING:", url);
 
-                const artists =
-                  [...row.querySelectorAll(
-                    "a[class*='StyledHyperlink']"
-                  )]
-                  .map(a => a.innerText.trim())
-                  .join(", ");
 
-                const streams =
-                  tds[6]?.innerText?.trim() || "";
 
-                const spotifyLink =
-                  row.querySelector(
-                    "a[href*='open.spotify.com']"
-                  )?.href || "";
+      try {
 
-                const image =
-                  row.querySelector("img")?.src || "";
+        await page.goto(url, {
 
-                return {
-                  rank,
-                  song,
-                  artists,
-                  streams,
-                  spotifyLink,
-                  image
-                };
+          waitUntil: "networkidle",
 
-              });
+          timeout: 60000
 
-            });
+        });
 
-          for (const item of results) {
 
-            const text = `
-              ${item.song}
-              ${item.artists}
-            `.toLowerCase();
 
-            if (text.includes("jimin")) {
+        await page.waitForSelector(
 
-              const result = {
-                category,
-                country,
-                chartType: type,
-                chartUrl: url,
-                updatedDate: currentDate,
-                ...item
-              };
+          "tbody tr",
 
-              jiminResults.push(result);
+          {
 
-              console.log("FOUND JIMIN:", result);
-
-            }
+            timeout: 20000
 
           }
 
-        } catch (err) {
+        );
 
-          console.log("SKIPPED:", url);
+
+
+        const rows =
+
+          await page.locator("tbody tr")
+          .evaluateAll(rows => {
+
+            return rows.map(row => {
+
+              const tds =
+                row.querySelectorAll("td");
+
+
+
+              const rank =
+                tds[1]
+                ?.innerText
+                ?.trim()
+                ?.split("\n")[0] || "";
+
+
+
+              const song =
+                row.querySelector(
+                  "span[class*='StyledTruncatedTitle']"
+                )
+                ?.innerText
+                ?.trim() || "";
+
+
+
+              const artists =
+                [
+                  ...row.querySelectorAll(
+                    "a[class*='StyledHyperlink']"
+                  )
+                ]
+                .map(a =>
+                  a.innerText.trim()
+                )
+                .join(", ");
+
+
+
+              const streams =
+                tds[6]
+                ?.innerText
+                ?.trim() || "";
+
+
+
+              return {
+
+                rank,
+
+                song,
+
+                artists,
+
+                streams
+
+              };
+
+            });
+
+          });
+
+
+
+        for (const item of rows) {
+
+          const text = `
+
+            ${item.song}
+
+            ${item.artists}
+
+          `.toLowerCase();
+
+
+
+          if (
+
+            text.includes("jimin")
+
+          ) {
+
+            results.push({
+
+              country,
+
+              chartType: type,
+
+              ...item
+
+            });
+
+
+
+            console.log(
+
+              "FOUND JIMIN",
+
+              item.song
+
+            );
+
+          }
 
         }
 
       }
+
+      catch (err) {
+
+        console.log(
+
+          "FAILED:",
+
+          url
+
+        );
+
+      }
+
     }
+
   }
 
+
+
   fs.writeFileSync(
-    "jimin-viral.json",
-    JSON.stringify(jiminResults, null, 2)
+
+    OUTPUT_FILE,
+
+    JSON.stringify(
+      results,
+      null,
+      2
+    )
+
   );
 
-  saveDate(currentDate);
 
-  console.log("TOTAL JIMIN FOUND:", jiminResults.length);
-
-  console.log("jimin-regional.json saved");
 
   await browser.close();
+
+
+
+  console.log(
+
+    "REGIONAL SAVED"
+
+  );
 
 }
 
@@ -227,22 +281,38 @@ app.get("/", (req, res) => {
 
   try {
 
-    if (!fs.existsSync("jimin-viral.json")) {
+    if (
+
+      !fs.existsSync(
+        OUTPUT_FILE
+      )
+
+    ) {
 
       return res.json([]);
 
     }
 
+
+
     const data =
+
       fs.readFileSync(
-        "jimin-regional.json",
+        OUTPUT_FILE,
         "utf8"
       );
 
+
+
     res.setHeader(
+
       "Content-Type",
+
       "application/json"
+
     );
+
+
 
     res.send(data);
 
@@ -259,16 +329,22 @@ app.get("/", (req, res) => {
 
 
 /*
-  UPDATE SCRAPER
+  MANUAL UPDATE
 */
 
 app.get("/update", async (req, res) => {
 
   try {
 
-    await test();
+    await scrapeCharts();
 
-    res.send("UPDATED");
+
+
+    res.json({
+
+      success: true
+
+    });
 
   }
 
@@ -276,7 +352,13 @@ app.get("/update", async (req, res) => {
 
     console.log(err);
 
-    res.send("FAILED");
+
+
+    res.json({
+
+      success: false
+
+    });
 
   }
 
@@ -284,6 +366,30 @@ app.get("/update", async (req, res) => {
 
 
 
-app.listen(3000, () => {
-  console.log("SERVER RUNNING");
+/*
+  START SERVER
+*/
+
+app.listen(3000, async () => {
+
+  console.log(
+
+    "SERVER RUNNING"
+
+  );
+
+
+
+  try {
+
+    await scrapeCharts();
+
+  }
+
+  catch (err) {
+
+    console.log(err);
+
+  }
+
 });
