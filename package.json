@@ -1,14 +1,28 @@
 {
-  "name": "spotifychartsupdate-multi-render",
+  "name": "spotifychartsupdate",
+
   "version": "1.0.0",
+
   "scripts": {
-    "start:regional": "node scripts/regional.js",
-    "start:artist": "node scripts/artist.js",
-    "start:album": "node scripts/album.js",
-    "start:viral": "node scripts/viral.js"
+
+    "start:regional":
+      "node scripts/regional.js",
+
+    "start:viral":
+      "node scripts/viral.js",
+
+    "start:artist":
+      "node scripts/artist.js",
+
+    "start:album":
+      "node scripts/album.js"
+
   },
+
   "dependencies": {
-    "express": "^4.21.2",
+
     "playwright": "^1.52.0"
+
   }
+
 }
