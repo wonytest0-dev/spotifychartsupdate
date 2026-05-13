@@ -123,6 +123,10 @@ async function test() {
 
 await page.waitForTimeout(8000);
 
+  let currentDate = "";
+
+try {
+
   await page.waitForSelector(
 
     "#date_picker",
@@ -135,13 +139,26 @@ await page.waitForTimeout(8000);
 
   );
 
-
-
-  const currentDate =
+  currentDate =
 
     await page.locator(
       "#date_picker"
     ).inputValue();
+
+}
+
+catch {
+
+  console.log(
+    "FAILED TO LOAD DATE"
+  );
+
+  await browser.close();
+
+  return;
+
+}
+
 
 
 
