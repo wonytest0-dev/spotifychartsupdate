@@ -109,7 +109,7 @@ async function test() {
 
   await page.goto(
 
-    "https://charts.spotify.com/charts/view/album-global-daily/latest",
+    "https://charts.spotify.com/charts/view/album-by-daily/latest",
 
     {
 
