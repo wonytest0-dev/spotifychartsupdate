@@ -1,4 +1,4 @@
-name: Artist Charts
+name: Viral Charts
 
 on:
   schedule:
@@ -25,14 +25,14 @@ jobs:
 
       - run: npx playwright install
 
-      - run: npm run start:artist
+      - run: npm run start:viral
 
       - run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
 
           git add .
-          git commit -m "update artist" || echo "no changes"
+          git commit -m "update viral" || echo "no changes"
 
           git pull --rebase origin main || true
 
