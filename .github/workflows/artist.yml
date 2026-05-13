@@ -35,4 +35,6 @@ jobs:
 
           git commit -m "update artist" || echo "no changes"
 
+          git pull --rebase origin main || true
+
           git push
