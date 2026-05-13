@@ -109,7 +109,7 @@ async function test() {
 
   await page.goto(
 
-    "https://charts.spotify.com/charts/view/viral-by-daily/latest",
+    "https://charts.spotify.com/charts/view/viral-global-daily/latest",
 
     {
 
