@@ -115,13 +115,13 @@ async function test() {
 
       waitUntil: "networkidle",
 
-      timeout: 60000
+      timeout: 90000
 
     }
 
   );
 
-
+await page.waitForTimeout(8000);
 
   await page.waitForSelector(
 
@@ -129,7 +129,7 @@ async function test() {
 
     {
 
-      timeout: 15000
+      timeout: 45000
 
     }
 
