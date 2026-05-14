@@ -1,18 +1,6 @@
 [
   {
     "category": "album",
-    "country": "cl",
-    "chartType": "weekly",
-    "chartUrl": "https://charts.spotify.com/charts/view/album-cl-weekly/latest",
-    "rank": "14",
-    "song": "MUSE",
-    "artists": "Jimin",
-    "streams": "",
-    "spotifyLink": "https://open.spotify.com/album/15XcLhiVMlSOipUddTNDnr",
-    "image": "https://i.scdn.co/image/ab67616d00001e02f02c451189a709b9a952aaec"
-  },
-  {
-    "category": "album",
     "country": "jp",
     "chartType": "weekly",
     "chartUrl": "https://charts.spotify.com/charts/view/album-jp-weekly/latest",
