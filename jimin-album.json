@@ -1,0 +1,98 @@
+[
+  {
+    "category": "album",
+    "country": "cl",
+    "chartType": "weekly",
+    "chartUrl": "https://charts.spotify.com/charts/view/album-cl-weekly/latest",
+    "rank": "14",
+    "song": "MUSE",
+    "artists": "Jimin",
+    "streams": "",
+    "spotifyLink": "https://open.spotify.com/album/15XcLhiVMlSOipUddTNDnr",
+    "image": "https://i.scdn.co/image/ab67616d00001e02f02c451189a709b9a952aaec"
+  },
+  {
+    "category": "album",
+    "country": "jp",
+    "chartType": "weekly",
+    "chartUrl": "https://charts.spotify.com/charts/view/album-jp-weekly/latest",
+    "rank": "28",
+    "song": "MUSE",
+    "artists": "Jimin",
+    "streams": "",
+    "spotifyLink": "https://open.spotify.com/album/15XcLhiVMlSOipUddTNDnr",
+    "image": "https://i.scdn.co/image/ab67616d00001e02f02c451189a709b9a952aaec"
+  },
+  {
+    "category": "album",
+    "country": "ph",
+    "chartType": "weekly",
+    "chartUrl": "https://charts.spotify.com/charts/view/album-ph-weekly/latest",
+    "rank": "125",
+    "song": "MUSE",
+    "artists": "Jimin",
+    "streams": "",
+    "spotifyLink": "https://open.spotify.com/album/15XcLhiVMlSOipUddTNDnr",
+    "image": "https://i.scdn.co/image/ab67616d00001e02f02c451189a709b9a952aaec"
+  },
+  {
+    "category": "album",
+    "country": "sg",
+    "chartType": "weekly",
+    "chartUrl": "https://charts.spotify.com/charts/view/album-sg-weekly/latest",
+    "rank": "6",
+    "song": "MUSE",
+    "artists": "Jimin",
+    "streams": "",
+    "spotifyLink": "https://open.spotify.com/album/15XcLhiVMlSOipUddTNDnr",
+    "image": "https://i.scdn.co/image/ab67616d00001e02f02c451189a709b9a952aaec"
+  },
+  {
+    "category": "album",
+    "country": "th",
+    "chartType": "weekly",
+    "chartUrl": "https://charts.spotify.com/charts/view/album-th-weekly/latest",
+    "rank": "36",
+    "song": "MUSE",
+    "artists": "Jimin",
+    "streams": "",
+    "spotifyLink": "https://open.spotify.com/album/15XcLhiVMlSOipUddTNDnr",
+    "image": "https://i.scdn.co/image/ab67616d00001e02f02c451189a709b9a952aaec"
+  },
+  {
+    "category": "album",
+    "country": "tw",
+    "chartType": "weekly",
+    "chartUrl": "https://charts.spotify.com/charts/view/album-tw-weekly/latest",
+    "rank": "16",
+    "song": "MUSE",
+    "artists": "Jimin",
+    "streams": "",
+    "spotifyLink": "https://open.spotify.com/album/15XcLhiVMlSOipUddTNDnr",
+    "image": "https://i.scdn.co/image/ab67616d00001e02f02c451189a709b9a952aaec"
+  },
+  {
+    "category": "album",
+    "country": "ua",
+    "chartType": "weekly",
+    "chartUrl": "https://charts.spotify.com/charts/view/album-ua-weekly/latest",
+    "rank": "156",
+    "song": "MUSE",
+    "artists": "Jimin",
+    "streams": "",
+    "spotifyLink": "https://open.spotify.com/album/15XcLhiVMlSOipUddTNDnr",
+    "image": "https://i.scdn.co/image/ab67616d00001e02f02c451189a709b9a952aaec"
+  },
+  {
+    "category": "album",
+    "country": "vn",
+    "chartType": "weekly",
+    "chartUrl": "https://charts.spotify.com/charts/view/album-vn-weekly/latest",
+    "rank": "108",
+    "song": "MUSE",
+    "artists": "Jimin",
+    "streams": "",
+    "spotifyLink": "https://open.spotify.com/album/15XcLhiVMlSOipUddTNDnr",
+    "image": "https://i.scdn.co/image/ab67616d00001e02f02c451189a709b9a952aaec"
+  }
+]
